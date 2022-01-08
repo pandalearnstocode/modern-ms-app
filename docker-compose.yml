@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  fastapi:
+    build: ml_layer/
+    ports: 
+      - 8000:8000
+    networks:
+      - deploy_network
+    container_name: ml_layer
+  streamlit:
+    build: ui_layer/
+    depends_on:
+      - ml_layer
+    ports: 
+        - 8501:8501
+    networks:
+      - deploy_network
+    container_name: ui_layer
+
+networks:
+  deploy_network:
+    driver: bridge
