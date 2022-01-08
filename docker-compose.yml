@@ -49,6 +49,10 @@ services:
       - POSTGRES_DB=datalake_db
     volumes:
       - datalake_db_data:/var/lib/postgresql/data/
+  redis:
+    build: ./redis
+    ports:
+      - "6379:6379"
 
 volumes:
   project_db_data:
