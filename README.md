@@ -1,14 +1,14 @@
 ## Directory structure generation
 
 01. UI Layer
-    1.  segmentation
+    1.  segmentation: done
     2.  upload data
     3.  download data
     4.  user login
 2.  Application Layer
 3.  Data Layer
 4.  ML Layer
-    1.  segmentation
+    1.  segmentation: done
 5.  Reporting Layer
 6.  Utility Layer
 7.  Data Jobs
@@ -23,3 +23,4 @@ mkdir modern_app && mkdir -p ./modern_app/{ui_layer,application_layer,data_layer
 
 # Reference:
 * https://davidefiocco.github.io/streamlit-fastapi-ml-serving/
+* https://github.com/pandalearnstocode/k8s_lab2/tree/feature/prometheus-grafana/toy_apps/ms
