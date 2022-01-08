@@ -1,7 +1,8 @@
-from fastapi import FastAPI, File
-from starlette.responses import Response
+from fastapi import FastAPI, File, Body
+from starlette.responses import Response, JSONResponse
 import io
 from app.segmentation import get_segmentator, get_segments
+from app.ml_jobs import sample_job
 
 model = get_segmentator()
 
@@ -20,3 +21,11 @@ def get_segmentation_map(file: bytes = File(...)):
     bytes_io = io.BytesIO()
     segmented_image.save(bytes_io, format="PNG")
     return Response(bytes_io.getvalue(), media_type="image/png")
+
+@app.post("/ex1")
+def run_task(data=Body(...)):
+    delta = int(data["amount"])
+    x = data["x"]
+    y = data["y"]
+    task = sample_job.delay(delta, x, y)
+    return JSONResponse({"Result": task.get()})
