@@ -3,26 +3,32 @@ version: '3'
 services:
   ml_layer:
     build: ml_layer/
-    container_name: ml_layer
     command: bash -c 'while !</dev/tcp/datalake_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0'
     ports: 
       - 8000:8000
   application_layer:
     build: application_layer/
-    container_name: application_layer
     command: bash -c 'while !</dev/tcp/project_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0'
     ports: 
       - 8001:8000
+  data_layer:
+    build: data_layer/
+    command: bash -c 'while !</dev/tcp/datalake_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0'
+    ports: 
+      - 8002:8000
+  utility_layer:
+    build: utility_layer/
+    command: bash -c 'while !</dev/tcp/datalake_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0'
+    ports: 
+      - 8003:8000
   ui_layer:
     build: ui_layer/
-    container_name: ui_layer
     command: bash -c 'streamlit run app/main.py'
     depends_on:
       - ml_layer
     ports: 
       - 8501:8501
   project_db:
-    container_name: project_db_service
     build: ./project_db
     environment:
       - POSTGRES_USER=pguser
@@ -32,7 +38,6 @@ services:
       - project_db_data:/var/lib/postgresql/data/
   datalake_db:
     build: ./datalake_db
-    container_name: datalake_db_service
     environment:
       - POSTGRES_USER=pguser
       - POSTGRES_PASSWORD=pgpassword
