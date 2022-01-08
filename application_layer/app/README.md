@@ -1,0 +1,1 @@
+`chmod +x prestart.sh`. This will only work with `tiangolo/uvicorn-gunicorn:python` image. Also, it has to be place in the project root dir, at the same level of app dir.

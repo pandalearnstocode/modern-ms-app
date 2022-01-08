@@ -8,12 +8,12 @@ from prometheus_fastapi_instrumentator import Instrumentator
 
 
 app = FastAPI()
+
 Instrumentator().instrument(app).expose(app)
 
 @app.on_event("startup")
 async def on_startup():
     await init_db()
-
 
 @app.get("/ping")
 async def pong():

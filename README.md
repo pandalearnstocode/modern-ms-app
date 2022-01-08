@@ -24,3 +24,4 @@ mkdir modern_app && mkdir -p ./modern_app/{ui_layer,application_layer,data_layer
 # Reference:
 * https://davidefiocco.github.io/streamlit-fastapi-ml-serving/
 * https://github.com/pandalearnstocode/k8s_lab2/tree/feature/prometheus-grafana/toy_apps/ms
+* https://testdriven.io/blog/fastapi-docker-traefik/
