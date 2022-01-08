@@ -11,9 +11,11 @@ app = FastAPI()
 
 Instrumentator().instrument(app).expose(app)
 
+
 @app.on_event("startup")
 async def on_startup():
     await init_db()
+
 
 @app.get("/ping")
 async def pong():
@@ -24,7 +26,9 @@ async def pong():
 async def get_users(session: AsyncSession = Depends(get_session)):
     result = await session.execute(select(User))
     users = result.scalars().all()
-    return [User(email=user.email, password=user.password, id=user.id) for user in users]
+    return [
+        User(email=user.email, password=user.password, id=user.id) for user in users
+    ]
 
 
 @app.post("/users")
@@ -35,12 +39,13 @@ async def add_user(user: UserCreate, session: AsyncSession = Depends(get_session
     await session.refresh(user)
     return user
 
+
 @app.post("/login")
 async def login(login_user: UserCreate, session: AsyncSession = Depends(get_session)):
     result = await session.execute(select(User))
     users = result.scalars().all()
     login_user_dict = login_user.dict()
-    all_users = [{"email":user.email, "password":user.password} for user in users]
+    all_users = [{"email": user.email, "password": user.password} for user in users]
     is_valid = login_user_dict in all_users
     if is_valid:
         return {"message": "User logged in successfully"}
