@@ -20,7 +20,7 @@ services:
     depends_on:
       - ml_layer
     ports: 
-        - 8501:8501
+      - 8501:8501
   project_db:
     container_name: project_db_service
     build: ./project_db
