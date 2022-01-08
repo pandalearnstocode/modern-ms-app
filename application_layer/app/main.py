@@ -2,8 +2,8 @@ from fastapi import Depends, FastAPI
 from sqlalchemy.future import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
-from db import get_session, init_db
-from models import User, UserCreate
+from app.db import get_session, init_db
+from app.models import User, UserCreate
 from prometheus_fastapi_instrumentator import Instrumentator
 
 

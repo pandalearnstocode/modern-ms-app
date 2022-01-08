@@ -8,7 +8,7 @@ import json
 import pandas as pd
 import httpx
 # fastapi endpoint
-url = 'http://ml_lib:8000'
+url = 'http://ml_layer:8000'
 endpoint = '/segmentation'
 APPLICATION_SERVICE_URL=url+endpoint
 
