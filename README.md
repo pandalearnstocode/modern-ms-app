@@ -54,3 +54,4 @@ docker network create stonehenge-network
 * https://github.com/pandalearnstocode/k8s_lab2/tree/feature/prometheus-grafana/toy_apps/ms
 * https://testdriven.io/blog/fastapi-docker-traefik/
 * https://stackoverflow.com/questions/44284484/docker-compose-share-named-volume-between-multiple-containers
+* https://appsilon.com/r-rest-api/
