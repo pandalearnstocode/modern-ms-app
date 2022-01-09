@@ -55,9 +55,13 @@ services:
     build: ./redis
     ports:
       - 6379:6379
+  redis_r:
+    build: ./redis
+    ports:
+      - 6380:6379
   ml_jobs:
     build: ./ml_jobs
-    command: celery -A ml_jobs.celery worker --loglevel=info
+    command: celery -A ml_jobs.app worker --loglevel=info
     volumes:
       - ./ml_jobs/app/:/app
     depends_on:
@@ -68,9 +72,22 @@ services:
         interval: 30s
         timeout: 10s
         retries: 3
+  ml_jobs_r:
+    build: ./ml_jobs_r
+    volumes:
+      - ./ml_jobs_r/src/data/test.csv:/home/data/test.csv:ro
+      - ./ml_jobs_r/src/master.R:/home/script/master.R
+    depends_on:
+      - ml_layer
+      - redis_r
+    healthcheck:
+      test: celery inspect ping -b redis://redis:6379/0 -d celery@ml_jobs
+      interval: 30s
+      timeout: 10s
+      retries: 3
   flower:
     build: ./flower
-    command: celery -A ml_jobs.celery flower --port=5555 --broker=redis://redis:6379/0
+    command: celery -A ml_jobs.app flower --port=5555 --broker=redis://redis:6379/0
     volumes:
       - ./ml_jobs/app/:/app
     ports:
