@@ -55,3 +55,19 @@ docker network create stonehenge-network
 * https://testdriven.io/blog/fastapi-docker-traefik/
 * https://stackoverflow.com/questions/44284484/docker-compose-share-named-volume-between-multiple-containers
 * https://appsilon.com/r-rest-api/
+
+
+## TODO:
+
+* add reverse proxy
+* add prometheus, grafana
+* add loki, alert manager, data source redis, data source prometheus
+* add db manager
+* add dozzle
+* add APIs in `utility_r` layer
+* add stuff in libs, data layer, data jobs, data db and project db
+* implement the e2e flow to show case the use case
+* deploy using docker compose, swarm
+* add TLS
+* add DNS
+* add basic login
