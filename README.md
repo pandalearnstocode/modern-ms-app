@@ -39,6 +39,12 @@ mkdir modern_app && mkdir -p ./modern_app/{ui_layer,application_layer,data_layer
 2. login using email id and password
 
 
+## Dependency management
+
+<p align="center">
+  <img src="./static/diagram_1.png" />
+</p>
+
 # Reference:
 * https://davidefiocco.github.io/streamlit-fastapi-ml-serving/
 * https://github.com/pandalearnstocode/k8s_lab2/tree/feature/prometheus-grafana/toy_apps/ms
