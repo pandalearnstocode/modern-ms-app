@@ -71,3 +71,9 @@ docker network create stonehenge-network
 * add TLS
 * add DNS
 * add basic login
+
+Tracker:
+
+* docker-compose.test.yml: working
+* docker-compose.mini.yml (port 80 open, remaining closed): working
+* docker-compose.mini.yml  + proxy manager(port 443 open, remaining closed)

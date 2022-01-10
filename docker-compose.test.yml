@@ -1,0 +1,147 @@
+version: '3'
+
+services:
+  ml_layer:
+    container_name: ml_layer
+    build: ml_layer/
+    command: bash -c 'while !</dev/tcp/datalake_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --reload'
+    volumes:
+      - ./ml_jobs/app/ml_jobs.py:/app/ml_jobs.py
+    networks:
+      - backend-network
+  redis:
+    build: ./redis
+    container_name: redis
+    networks:
+      - backend-network
+  redis_r:
+    build: ./redis
+    container_name: redis_r
+    networks:
+      - backend-network
+  ml_jobs:
+    build: ./ml_jobs
+    command: celery -A ml_jobs.app worker --loglevel=info
+    container_name: ml_jobs
+    volumes:
+      - ./ml_jobs/app/:/app
+    depends_on:
+      - ml_layer
+      - redis
+    healthcheck:
+        test: celery inspect ping -b redis://redis:6379/0 -d celery@ml_jobs
+        interval: 30s
+        timeout: 10s
+        retries: 3
+    networks:
+      - backend-network
+  ml_jobs_r:
+    build: ./ml_jobs_r
+    container_name: ml_jobs_r
+    volumes:
+      - ./ml_jobs_r/src/data/test.csv:/home/data/test.csv:ro
+      - ./ml_jobs_r/src/master.R:/home/script/master.R
+    depends_on:
+      - ml_layer
+      - redis_r
+    healthcheck:
+      test: celery inspect ping -b redis://redis:6379/0 -d celery@ml_jobs
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - backend-network
+  flower:
+    build: ./flower
+    command: celery -A ml_jobs.app flower --port=5555 --broker=redis://redis:6379/0
+    container_name: flower
+    volumes:
+      - ./ml_jobs/app/:/app
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - ml_layer
+      - redis
+      - ml_jobs
+    networks:
+      - backend-network
+      - frontend-network
+  data_layer:
+    container_name: data_layer
+    build: data_layer/
+    command: bash -c 'while !</dev/tcp/datalake_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --reload'
+    depends_on:
+      - datalake_db
+    networks:
+      - backend-network
+  datalake_db:
+    build: ./datalake_db
+    container_name: datalake_db
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=pgpassword
+      - POSTGRES_DB=datalake_db
+    volumes:
+      - datalake_db_data:/var/lib/postgresql/data/
+    networks:
+      - backend-network
+  application_layer:
+    container_name: application_layer
+    build: application_layer/
+    command: bash -c 'while !</dev/tcp/project_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --reload'
+    depends_on:
+      - project_db
+    networks:
+      - backend-network
+      - frontend-network
+  project_db:
+    build: ./project_db
+    container_name: project_db
+    environment:
+      - POSTGRES_USER=pguser
+      - POSTGRES_PASSWORD=pgpassword
+      - POSTGRES_DB=project_db
+    volumes:
+      - project_db_data:/var/lib/postgresql/data/
+    networks:
+      - backend-network
+  utility_layer:
+    container_name: utility_layer
+    build: utility_layer/
+    command: bash -c 'while !</dev/tcp/datalake_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --reload'
+    depends_on:
+      - datalake_db
+      - project_db
+    networks:
+      - backend-network
+  reporting_layer:
+    container_name: reporting_layer
+    build: reporting_layer/
+    command: bash -c 'while !</dev/tcp/datalake_db/5432; do sleep 1; done; uvicorn app.main:app --host 0.0.0.0 --reload'
+    depends_on:
+      - datalake_db
+      - project_db
+    networks:
+      - backend-network
+  ui_layer:
+    container_name: ui_layer
+    build: ui_layer/
+    command: streamlit run app/main.py --server.address="0.0.0.0" --server.port="80"  --server.headless=true
+    ports: 
+      - 80:80
+    networks:
+      - backend-network
+      - frontend-network      
+volumes:
+  project_db_data:
+  datalake_db_data:
+
+networks:
+  backend-network:
+    driver: bridge
+    external: false
+  frontend-network:
+    external: true

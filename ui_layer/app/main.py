@@ -11,7 +11,7 @@ import httpx
 # fastapi endpoint
 url = "http://ml_layer:8000"
 endpoint = "/segmentation"
-APPLICATION_SERVICE_URL = url + endpoint
+APPLICATION_SERVICE_URL = "http://application_layer:8000"
 
 application_form = st.form(key="application-layer")
 application_email = application_form.text_input("Enter your email")
@@ -23,7 +23,7 @@ st.title("DeepLabV3 image segmentation")
 
 if application_submit:
     login_data = {"email": application_email, "password": application_password}
-    r = requests.post(APPLICATION_SERVICE_URL + "login", data=json.dumps(login_data))
+    r = requests.post(APPLICATION_SERVICE_URL + "/login", data=json.dumps(login_data))
     st.write(f"hello {r.text}")
     if r.status_code == 200:
         st.write(
