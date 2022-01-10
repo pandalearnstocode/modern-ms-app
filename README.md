@@ -54,6 +54,7 @@ docker network create stonehenge-network
 * https://testdriven.io/blog/fastapi-docker-traefik/
 * https://stackoverflow.com/questions/44284484/docker-compose-share-named-volume-between-multiple-containers
 * https://appsilon.com/r-rest-api/
+* https://mlr3gallery.mlr-org.com/posts/2020-08-13-a-production-example-using-plumber-and-docker/
 
 
 ## TODO:
