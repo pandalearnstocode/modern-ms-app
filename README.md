@@ -1,32 +1,31 @@
 ## Directory structure generation
 
-01. UI Layer
-    1.  segmentation: done
-    2.  upload data csv
-    3.  download data csv
-    4.  user login
-2.  Application Layer
-3.  Data Layer
-4.  ML Layer
-    1.  segmentation: done
-5.  Reporting Layer
-6.  Utility Layer
-7.  Data Jobs
-8.  ML Jobs
-9.  Data Lib
-10. ML Lib
+01. UI Layer [Streamlit]
+02. Application Layer [FastAPI]
+03. ML Layer (R) [Plumber]
+04. ML Layer (Python) [FastAPI]
+05. ML Jobs (Python) [Celery Worker]
+06. ML Jobs (R) [Celery Worker]
+07. Redis (Python) [data store]
+08. Redis (R) [data store]
+09. Flower [celery monitor]
+10. Prometheus [Prometheus]
+11. Grafana [Monitoring]
+12. Dozzle [Log monitoring]
+13. Reporting Layer [FastAPI]
+14. Utility Layer [FastAPI]
+15. Reverse proxy [Nginx]
+16. Project DB (postgres)
+17. Data DB (postgres)
+18. DB monitor (pdAdmin)
 
 
 ### Additional components:
 
-* prometheus
+* prometheus: add prometheus exported to expose metrics endpoint from all the container.
 * grafana
 * db admin
 * logger
-* celery worker
-* redis
-* rabbit mq
-* flower
 * nginx proxy manager
 
 ```bash
