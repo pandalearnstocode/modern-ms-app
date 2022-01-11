@@ -48,7 +48,8 @@ docker network create stonehenge-network
   <img src="./static/diagram_1.png" />
 </p>
 
-# Reference:
+### Reference:
+
 * https://davidefiocco.github.io/streamlit-fastapi-ml-serving/
 * https://github.com/pandalearnstocode/k8s_lab2/tree/feature/prometheus-grafana/toy_apps/ms
 * https://testdriven.io/blog/fastapi-docker-traefik/
@@ -60,6 +61,7 @@ docker network create stonehenge-network
 * https://www.kdnuggets.com/2020/10/deploying-secure-scalable-streamlit-apps-aws-docker-swarm-traefik-keycloak.html
 * https://www.databentobox.com/2020/05/03/secure-shinyproxy/
 * https://dockerswarm.rocks/
+* https://www.digitalocean.com/community/tutorials/how-to-use-traefik-v2-as-a-reverse-proxy-for-docker-containers-on-ubuntu-20-04
 
 
 ## TODO:

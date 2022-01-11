@@ -28,16 +28,6 @@ services:
     networks:
       - backend-network
       - frontend-network
-  proxy_manager:
-    image: 'jc21/nginx-proxy-manager:latest'
-    restart: always
-    ports:
-      - '80:80'
-      - '443:443'
-      - '81:81'
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
 
 volumes:
   project_db_data:
