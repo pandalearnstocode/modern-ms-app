@@ -59,6 +59,7 @@ docker network create stonehenge-network
 * https://discuss.streamlit.io/t/streamlit-docker-nginx-ssl-https/2195/8
 * https://www.kdnuggets.com/2020/10/deploying-secure-scalable-streamlit-apps-aws-docker-swarm-traefik-keycloak.html
 * https://www.databentobox.com/2020/05/03/secure-shinyproxy/
+* https://dockerswarm.rocks/
 
 
 ## TODO:
