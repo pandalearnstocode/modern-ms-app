@@ -9,7 +9,7 @@ services:
       - project_db
     networks:
       - backend-network
-      - frontend-network
+      - web
   project_db:
     build: ./project_db
     container_name: project_db
@@ -21,13 +21,20 @@ services:
       - project_db_data:/var/lib/postgresql/data/
     networks:
       - backend-network
+    labels:
+      - traefik.enable=false
   ui_layer:
     container_name: ui_layer
     build: ui_layer/
-    command: streamlit run app/main.py --server.address="0.0.0.0" --server.port="80"  --server.headless=true
+    command: streamlit run app/main.py --server.address="0.0.0.0" --server.port="8501"  --server.headless=true
     networks:
       - backend-network
-      - frontend-network
+      - web
+    labels:
+      - traefik.http.routers.blog.rule=Host(`app.marketingbudgetallocator.live`)
+      - traefik.http.routers.blog.tls=true
+      - traefik.http.routers.blog.tls.certresolver=lets-encrypt
+      - traefik.port=8501
 
 volumes:
   project_db_data:
@@ -36,5 +43,5 @@ networks:
   backend-network:
     driver: bridge
     external: false
-  frontend-network:
+  web:
     external: true

@@ -85,3 +85,4 @@ Tracker:
 * docker-compose.test.yml: working
 * docker-compose.mini.yml (port 80 open, remaining closed): working
 * docker-compose.mini.yml + proxy manager(port 443 open, remaining closed): NOT working, because of [this](https://discuss.streamlit.io/t/streamlit-docker-nginx-ssl-https/2195/8) issue.
+* docker-compose.mini.ssl.yml: working (docker compose mode)
