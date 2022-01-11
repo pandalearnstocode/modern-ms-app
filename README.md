@@ -75,6 +75,7 @@ docker network create stonehenge-network
 * add TLS
 * add DNS
 * add basic login
+* add shiny as container
 
 Tracker:
 
