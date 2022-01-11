@@ -55,6 +55,8 @@ docker network create stonehenge-network
 * https://stackoverflow.com/questions/44284484/docker-compose-share-named-volume-between-multiple-containers
 * https://appsilon.com/r-rest-api/
 * https://mlr3gallery.mlr-org.com/posts/2020-08-13-a-production-example-using-plumber-and-docker/
+* https://linuxhint.com/use-nginx-proxy-manager/
+* https://discuss.streamlit.io/t/streamlit-docker-nginx-ssl-https/2195/8
 
 
 ## TODO:
@@ -76,4 +78,4 @@ Tracker:
 
 * docker-compose.test.yml: working
 * docker-compose.mini.yml (port 80 open, remaining closed): working
-* docker-compose.mini.yml  + proxy manager(port 443 open, remaining closed)
+* docker-compose.mini.yml + proxy manager(port 443 open, remaining closed): NOT working, because of [this](https://discuss.streamlit.io/t/streamlit-docker-nginx-ssl-https/2195/8) issue.
