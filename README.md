@@ -57,6 +57,8 @@ docker network create stonehenge-network
 * https://mlr3gallery.mlr-org.com/posts/2020-08-13-a-production-example-using-plumber-and-docker/
 * https://linuxhint.com/use-nginx-proxy-manager/
 * https://discuss.streamlit.io/t/streamlit-docker-nginx-ssl-https/2195/8
+* https://www.kdnuggets.com/2020/10/deploying-secure-scalable-streamlit-apps-aws-docker-swarm-traefik-keycloak.html
+* https://www.databentobox.com/2020/05/03/secure-shinyproxy/
 
 
 ## TODO:
