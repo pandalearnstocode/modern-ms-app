@@ -62,6 +62,7 @@ docker network create stonehenge-network
 * https://www.databentobox.com/2020/05/03/secure-shinyproxy/
 * https://dockerswarm.rocks/
 * https://www.digitalocean.com/community/tutorials/how-to-use-traefik-v2-as-a-reverse-proxy-for-docker-containers-on-ubuntu-20-04
+* https://www.cometari.com/case-study/container-orchestration-with-docker-swarm-and-traefik
 
 
 ## TODO:
